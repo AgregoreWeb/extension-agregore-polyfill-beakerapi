@@ -1,0 +1,23 @@
+{
+	"manifest_version": 1,
+	"name": "agregore-beakerapi-polyfill",
+	"version": "1.0",
+
+	"description": "The Beaker API polyfill for the Agregore Browser",
+
+	"permissions": [
+		"activeTab"
+	],
+
+	"content_scripts": [
+		{
+			"matches": ["*"],
+			"js": [
+				"script.js"
+			]
+		}
+	],
+	"web_accessible_resources": [
+		"./content/*"
+	]
+}
