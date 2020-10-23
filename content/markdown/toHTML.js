@@ -1,7 +1,12 @@
 // Reference: https://docs.beakerbrowser.com/apis/beaker.markdown#beakermarkdowntohtmlmd
-const parser = new commonmark.Parser();
-const renderer = new commonmark.HtmlRenderer(); // TODO: Tune based on beaker.markdown's outputs, using commonmark options
+const renderer = window.markdownit({
+	allowHTML: false,
+	useHeadingIds: false,
+	useHeadingAnchors: false,
+	hrefMassager: undefined,
+	highlight: undefined
+}) // Uses same options as Beaker: https://github.com/beakerbrowser/beaker/blob/master/app/bg/web-apis/bg/markdown.js
 function toHTML(md) {
-	return renderer.render(parser.parse(md))
+	return renderer.render(md)
 }
 export default toHTML

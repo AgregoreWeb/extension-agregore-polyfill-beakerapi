@@ -6,6 +6,6 @@ document.body.appendChild(script)
 
 // Inject commonmark for beaker.markdown
 // TODO: Find a way to use import or alike (or perhaps only inject once needed?)
-const commonmark = document.createElement('script')
-commonmark.src = chrome.extension.getURL('./content/markdown/commonmark.min.js') // TODO: Figure out the keyword to use instead of "chrome"
-document.body.appendChild(commonmark)
+const markdownit = document.createElement('script')
+markdownit.src = chrome.extension.getURL('./content/markdown/markdown-it.min.js') // TODO: Figure out the keyword to use instead of "chrome"
+document.body.appendChild(markdownit)
