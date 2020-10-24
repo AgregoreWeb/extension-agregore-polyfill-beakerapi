@@ -12,5 +12,14 @@ function writeFile(url, data, opts = {encoding: 'utf8', metadata: {}, timeout: 6
 	}
 
 	return fetch(url, {method: 'PUT', body: data, signal: signal})
+		.then(response => {
+			if(!response.ok) switch(response.status) {
+				case 403:
+					throw 'Error: Uncaught ArchiveNotWritableError: Cannot write to this archive ; Not the owner' // Mimics beaker.hyperdrive.writeFile() unauthorised... not sure if this is good enough though.
+					break
+				default:
+					throw reponse.status
+			}
+		})
 }
 export default writeFile
