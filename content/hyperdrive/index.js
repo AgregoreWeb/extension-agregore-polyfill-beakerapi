@@ -1,3 +1,4 @@
 // Reference: https://docs.beakerbrowser.com/apis/beaker.hyperdrive
 import drive from './drive.js'
-export default {drive}
+import readFile from './readFile.js'
+export default {drive, readFile}
