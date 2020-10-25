@@ -1,4 +1,5 @@
 // Reference: https://docs.beakerbrowser.com/apis/beaker.hyperdrive#beakerhyperdrivewritefileurl-data-opts
+import ArchiveNotWritableError from '/content/errors/ArchiveNotWritableError.js'
 function writeFile(url, data, opts = {encoding: 'utf8', metadata: {}, timeout: 60000}) {
 	if(typeof opts === 'string') opts = {encoding: opts, metadata: {}, timeout: 60000}
 	const controller = new AbortController()
@@ -15,10 +16,10 @@ function writeFile(url, data, opts = {encoding: 'utf8', metadata: {}, timeout: 6
 		.then(response => {
 			if(!response.ok) switch(response.status) {
 				case 403:
-					throw 'Error: Uncaught ArchiveNotWritableError: Cannot write to this archive ; Not the owner' // Mimics beaker.hyperdrive.writeFile() unauthorised... not sure if this is good enough though.
+					throw new ArchiveNotWritableError('Cannot write to this archive ; Not the owner') // Mimics beaker.hyperdrive.writeFile() unauthorised... not sure if this is good enough though.
 					break
 				default:
-					throw reponse.status
+					throw new Error(response.status)
 			}
 		})
 }

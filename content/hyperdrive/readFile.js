@@ -1,4 +1,5 @@
 // Reference: https://docs.beakerbrowser.com/apis/beaker.hyperdrive#beakerhyperdrivereadfileurl-opts
+import TimeoutError from '/content/errors/TimeoutError.js'
 function readFile(url, opts = {encoding: 'utf8', timeout: 60000}) {
 	if(typeof opts === 'string') opts = {encoding: opts, timeout: 60000}
 	const controller = new AbortController()
@@ -20,7 +21,7 @@ function readFile(url, opts = {encoding: 'utf8', timeout: 60000}) {
 			}
 		})
 		.catch(() => {
-			throw 'Error: Uncaught TimeoutError: Timed out while reading file' // Mimics beaker.hyperdrive.readFile() timeout... not sure if this is good enough though.
+			throw new TimeoutError('Timed out while reading file') // Mimics beaker.hyperdrive.readFile() timeout... not sure if this is good enough though.
 		})
 }
 export default readFile
